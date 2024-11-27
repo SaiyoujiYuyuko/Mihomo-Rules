@@ -636,14 +636,8 @@ function overwriteDns(params, proxyName) {
   const cnDnsList = [
     "https://223.5.5.5/dns-query",
     "https://1.12.12.12/dns-query",
-    "https://dns.alidns.com/dns-query", // 阿里云公共DNS
-    "https://doh.pub/dns-query", // 腾讯DNSPod
-    "https://doh.360.cn/dns-query", // 360安全DNS    
   ];
   const trustDnsList = [
-    "https://doh.pub/dns-query",
-    "https://dns.alidns.com/dns-query",
-    "180.184.1.1",
     "quic://dns.cooluc.com",
     "https://1.1.1.1/dns-query", // Cloudflare(主)
     "https://1.0.0.1/dns-query", // Cloudflare(备)
@@ -656,9 +650,9 @@ function overwriteDns(params, proxyName) {
 
   const dnsOptions = {
     enable: true,
-    "prefer-h3": true,
-    "default-nameserver": ["180.184.1.1", "udp://47.108.230.123:5553", "https://119.29.29.29/dns-query", "223.5.5.5", "119.29.29.29", "1.1.1.1", "8.8.8.8"],
-    nameserver: trustDnsList,
+    "prefer-h3": true, // 如果 DNS 服务器支持 DoH3 会优先使用 h3
+    "default-nameserver": cnDnsList, // 用于解析其他 DNS 服务器、和节点的域名，必须为 IP, 可为加密 DNS。注意这个只用来解析节点和其他的 dns，其他网络请求不归他管
+    nameserver: trustDnsList, // 其他网络请求都归他管
     "nameserver-policy": {
       "http-inputs-notion.splunkcloud.com,+.notion-static.com,+.notion.com,+.notion.new,+.notion.site,+.notion.so": "tls://dns.jerryw.cn", 
       "geosite:cn": cnDnsList,
@@ -667,6 +661,8 @@ function overwriteDns(params, proxyName) {
       "geosite:geolocation-!cn": trustDnsList,
       "domain:google.com,facebook.com,youtube.com,twitter.com,github.com,cloudflare.com,jsdelivr.net,hf.space":
         trustDnsList,
+      // 如果你有一些内网使用的 DNS，应该定义在这里，多个域名用英文逗号分割
+      // '+. 公司域名.com, www.4399.com, +.baidu.com': '10.0.0.1'
     },
     fallback: trustDnsList,
     "fallback-filter": {
