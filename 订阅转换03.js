@@ -634,7 +634,7 @@ function overwriteDns(params, proxyName) {
         ipcidr: ["240.0.0.0/4"],
         domain: ["+.google.com", "+.facebook.com", "+.youtube.com"],
     },
-    "enhanced-mode": "redir-host-with-ipv6",
+    "enhanced-mode": "redir-host",
     "fake-ip-range": "198.18.0.0/16",
     "system-dns": [],
     "use-hosts": true,
@@ -710,6 +710,6 @@ function getProxiesByRegex(params, regex) {
 
 function getManualProxiesByRegex(params, regex) {
 	const matchedProxies = params.proxies.filter((e) => regex.test(e.name)).map((e) => e.name);
-//	return regex.test("CN") ? ["DIRECT", ...matchedProxies]: matchedProxies.length > 0 ? matchedProxies : ["DIRECT", "手动选择", proxyName];
-	return matchedProxies.length > 0 ? matchedProxies : ["DIRECT", "手动选择", proxyName];
+	return regex.test("CN") ? ["DIRECT", ...matchedProxies]: matchedProxies.length > 0 ? matchedProxies : ["DIRECT", "手动选择", proxyName];
+//	return matchedProxies.length > 0 ? matchedProxies : ["DIRECT", "手动选择", proxyName];
 }
