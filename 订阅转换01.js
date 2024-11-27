@@ -548,7 +548,7 @@ function overwriteProxyGroups(params) {
         otherAutoProxyGroup ? `${otherAutoProxyGroup.name} - Shared Chat` : null,
       ].filter(Boolean),
     },
-    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].map(groupName => ({
+    ...["SteamCN", "Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].map(groupName => ({
       name: groupName,
       type: "select",
       url: getTestUrlForGroup(groupName),
