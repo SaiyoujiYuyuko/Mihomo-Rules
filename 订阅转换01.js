@@ -107,6 +107,13 @@ function getIconForGroup(groupName) {
 }
 
 const customRules = [
+  // 自定义规则
+  "DOMAIN-SUFFIX,googleapis.cn," + proxyName, // Google服务
+  "DOMAIN-SUFFIX,gstatic.com," + proxyName, // Google静态资源
+  "DOMAIN-SUFFIX,xn--ngstr-lra8j.com," + proxyName, // Google Play下载服务
+  "DOMAIN-SUFFIX,github.io," + proxyName, // Github Pages
+  "DOMAIN,v2rayse.com," + proxyName, // V2rayse节点工具
+  "DOMAIN,hajimi.icu," + proxyName, 
 	"DOMAIN-SUFFIX,linux.do,Linux Do",
 	"DOMAIN-SUFFIX,shared.oaifree.com,Shared Chat",
 	"IP-CIDR,183.230.113.152/32,REJECT",
@@ -177,17 +184,19 @@ function overwriteRules(params) {
 		"RULE-SET,claude,Claude",
 		"RULE-SET,spotify,Spotify",
 		"RULE-SET,google,Google",
-		"RULE-SET,Microsoft,Microsoft",
+		"RULE-SET,microsoft,Microsoft",
 		"GEOIP,CN,DIRECT,no-resolve",
 		"GEOIP,LAN,DIRECT,no-resolve",
 		"GEOSITE,geolocation-cn,DIRECT",
 		"RULE-SET,direct,DIRECT",
-		"RULE-SET,cncidr,DIRECT",
+		"RULE-SET,cncidr,DIRECT,no-resolve",
 		"RULE-SET,private,DIRECT",
-		"RULE-SET,lancidr,DIRECT",
+		"RULE-SET,lancidr,DIRECT,no-resolve",
 		"RULE-SET,applications,DIRECT",
-		// "RULE-SET,apple," + proxyName,
-		// "RULE-SET,icloud," + proxyName,
+		"RULE-SET,bytedance,DIRECT",
+		"RULE-SET,steamcn,DIRECT",
+		"RULE-SET,apple," + proxyName,
+		"RULE-SET,icloud," + proxyName,
 		// "RULE-SET,greatfire," + proxyName,
 		"RULE-SET,reject,广告拦截",
 		"RULE-SET,AD,广告拦截",
@@ -195,195 +204,182 @@ function overwriteRules(params) {
 		"RULE-SET,EasyListChina,广告拦截",
 		"RULE-SET,EasyPrivacy,广告拦截",
 		"RULE-SET,ProgramAD,广告拦截",
-		// "RULE-SET,gfw," + proxyName,
-		// "RULE-SET,proxy," + proxyName,
-		// "RULE-SET,tld-not-cn," + proxyName,
+		"RULE-SET,gfw," + proxyName,
+		"RULE-SET,proxy," + proxyName,
+		"RULE-SET,tld-not-cn," + proxyName,
 		"MATCH,漏网之鱼",
 	];
-	const ruleProviders = {
-		steam: {
-			type: "http",
+  // 规则集通用配置
+  const ruleProviderCommon = {
+    "type": "http",
+    "format": "yaml",
+    "interval": 86400
+  };	
+  // 规则集配置
+  const ruleProviders = {
+    "reject": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt",
+      "path": "./ruleset/loyalsoldier/reject.yaml"
+    },
+    "icloud": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt",
+      "path": "./ruleset/loyalsoldier/icloud.yaml"
+    },
+    "apple": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt",
+      "path": "./ruleset/loyalsoldier/apple.yaml"
+    },
+    "google": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt",
+      "path": "./ruleset/loyalsoldier/google.yaml"
+    },
+    "proxy": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
+      "path": "./ruleset/loyalsoldier/proxy.yaml"
+    },
+    "direct": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt",
+      "path": "./ruleset/loyalsoldier/direct.yaml"
+    },
+    "private": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt",
+      "path": "./ruleset/loyalsoldier/private.yaml"
+    },
+    "gfw": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
+      "path": "./ruleset/loyalsoldier/gfw.yaml"
+    },
+    "tld-not-cn": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt",
+      "path": "./ruleset/loyalsoldier/tld-not-cn.yaml"
+    },
+    "telegramcidr": {
+      ...ruleProviderCommon,
+      "behavior": "ipcidr",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt",
+      "path": "./ruleset/loyalsoldier/telegramcidr.yaml"
+    },
+    "cncidr": {
+      ...ruleProviderCommon,
+      "behavior": "ipcidr",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt",
+      "path": "./ruleset/loyalsoldier/cncidr.yaml"
+    },
+    "lancidr": {
+      ...ruleProviderCommon,
+      "behavior": "ipcidr",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt",
+      "path": "./ruleset/loyalsoldier/lancidr.yaml"
+    },
+    "applications": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
+      "path": "./ruleset/loyalsoldier/applications.yaml"
+    },
+    "openai": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml",
+      "path": "./ruleset/blackmatrix7/openai.yaml"
+    },
+    "microsoft": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml",
+      "path": "./ruleset/blackmatrix7/microsoft.yaml"
+    },
+    "steamcn": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml",
+      "path": "./ruleset/blackmatrix7/steamcn.yaml"
+    },
+    "bytedance": {
+        ...ruleProviderCommon,
+        "behavior": "classical",
+        "url": "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ByteDance/ByteDance.yaml",
+        "path": "./ruleset/blackmatrix7/bytedance.yaml"
+    },
+    "facebook": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Facebook/Facebook.yaml",
+      "path": "./ruleset/blackmatrix7/facebook.yaml"
+    },
+    "claude": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml",
+      "path": "./ruleset/blackmatrix7/claude.yaml"
+    },
+		"steam": {
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://fastly.jsdelivr.net/gh/yangtb2024/Mihomo-Rules@refs/heads/main/Steam.txt",
-			path: "./ruleset/steam.yaml",
-			interval: 86400,
+			path: "./ruleset/yangtb2024/steam.yaml"
 		},
-		Microsoft: {
-			type: "http",
-			behavior: "classical",
-			url: "https://fastly.jsdelivr.net/gh/yangtb2024/Mihomo-Rules@refs/heads/main/microsoft.txt",
-			path: "./ruleset/Microsoft.yaml",
-			interval: 86400,
-		},
-		reject: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt",
-			path: "./ruleset/reject.yaml",
-			interval: 86400,
-		},
-		icloud: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt",
-			path: "./ruleset/icloud.yaml",
-			interval: 86400,
-		},
-		apple: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt",
-			path: "./ruleset/apple.yaml",
-			interval: 86400,
-		},
-		google: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt",
-			path: "./ruleset/google.yaml",
-			interval: 86400,
-		},
-		proxy: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
-			path: "./ruleset/proxy.yaml",
-			interval: 86400,
-		},
-		openai: {
-			type: "http",
-			behavior: "classical",
-			url: "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml",
-			path: "./ruleset/custom/openai.yaml",
-			interval: 86400,
-		},
-		claude: {
-			type: "http",
-			behavior: "classical",
-			url: "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml",
-			path: "./ruleset/custom/Claude.yaml",
-			interval: 86400,
-		},
-		spotify: {
-			type: "http",
+		"spotify": {
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spotify/Spotify.yaml",
-			path: "./ruleset/custom/Spotify.yaml",
-			interval: 86400,
+			path: "./ruleset/blackmatrix7/Spotify.yaml"
 		},
-		telegramcidr: {
-			type: "http",
-			behavior: "ipcidr",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt",
-			path: "./ruleset/custom/telegramcidr.yaml",
-			interval: 86400,
-		},
-		direct: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt",
-			path: "./ruleset/direct.yaml",
-			interval: 86400,
-		},
-		private: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt",
-			path: "./ruleset/private.yaml",
-			interval: 86400,
-		},
-		gfw: {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
-			path: "./ruleset/gfw.yaml",
-			interval: 86400,
-		},
-		greatfire: {
-			type: "http",
+		"greatfire": {
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt",
-			path: "./ruleset/greatfire.yaml",
-			interval: 86400,
+			path: "./ruleset/Loyalsoldier/greatfire.yaml"
 		},
-		"tld-not-cn": {
-			type: "http",
-			behavior: "domain",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt",
-			path: "./ruleset/tld-not-cn.yaml",
-			interval: 86400,
-		},
-		cncidr: {
-			type: "http",
-			behavior: "ipcidr",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt",
-			path: "./ruleset/cncidr.yaml",
-			interval: 86400,
-		},
-		lancidr: {
-			type: "http",
-			behavior: "ipcidr",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt",
-			path: "./ruleset/lancidr.yaml",
-			interval: 86400,
-		},
-		applications: {
-			type: "http",
-			behavior: "classical",
-			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
-			path: "./ruleset/applications.yaml",
-			interval: 86400,
-		},
-		AD: {
-		  type: "http",
+		"AD": {
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/AD.yaml",
-		  path: "./rules/AD.yaml",
-		  interval: 86400,
+		  path: "./ruleset/earoftoast/AD.yaml"
 		},
-		EasyList: {
-		  type: "http",
+		"EasyList": {
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/EasyList.yaml",
-		  path: "./rules/EasyList.yaml",
-		  interval: 86400,
+		  path: ".ruleset/earoftoast/EasyList.yaml"
 		},
-		EasyListChina: {
-		  type: "http",
+		"EasyListChina": {
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/EasyListChina.yaml",
-		  path: "./rules/EasyListChina.yaml",
-		  interval: 86400,
+		  path: "./ruleset/earoftoast/EasyListChina.yaml"
 		},
-		EasyPrivacy: {
-		  type: "http",
+		"EasyPrivacy": {
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/EasyPrivacy.yaml",
-		  path: "./rules/EasyPrivacy.yaml",
-		  interval: 86400,
+		  path: "./ruleset/earoftoast/EasyPrivacy.yaml"
 		},
-		ProgramAD: {
-		  type: "http",
+		"ProgramAD": {
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/ProgramAD.yaml",
-		  path: "./rules/ProgramAD.yaml",
-		  interval: 86400,
+		  path: "./ruleset/earoftoast/ProgramAD.yaml"
 		},
-		gfw: {
-		  type: "http",
-		  behavior: "domain",
-		  url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
-		  path: "./ruleset/gfw.yaml",
-		  interval: 86400,
-		},
-		greatfire: {
-		  type: "http",
-		  behavior: "domain",
-		  url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt",
-		  path: "./ruleset/greatfire.yaml",
-		  interval: 86400,
-		},
-	};
+  };
 	
 	params["rule-providers"] = ruleProviders;
 	params["rules"] = rules;
@@ -640,18 +636,25 @@ function overwriteDns(params, proxyName) {
   const cnDnsList = [
     "https://223.5.5.5/dns-query",
     "https://1.12.12.12/dns-query",
+    "https://dns.alidns.com/dns-query", // 阿里云公共DNS
+    "https://doh.pub/dns-query", // 腾讯DNSPod
+    "https://doh.360.cn/dns-query", // 360安全DNS    
   ];
   const trustDnsList = [
     "quic://dns.cooluc.com",
-    "https://1.0.0.1/dns-query",
-    "https://1.1.1.1/dns-query",
+    "https://1.1.1.1/dns-query", // Cloudflare(主)
+    "https://1.0.0.1/dns-query", // Cloudflare(备)
+    "https://208.67.222.222/dns-query", // OpenDNS(主)
+    "https://208.67.220.220/dns-query", // OpenDNS(备)
+    "https://194.242.2.2/dns-query", // Mullvad(主)
+    "https://194.242.2.3/dns-query", // Mullvad(备)
     "https://cloudflare-dns.com/dns-query",
   ];
 
   const dnsOptions = {
     enable: true,
     "prefer-h3": true,
-    "default-nameserver": cnDnsList,
+    "default-nameserver": ["223.5.5.5", "119.29.29.29", "1.1.1.1", "8.8.8.8"],
     nameserver: trustDnsList,
     "nameserver-policy": {
       "geosite:cn": cnDnsList,
@@ -667,6 +670,19 @@ function overwriteDns(params, proxyName) {
     },
     "enhanced-mode": "redir-host-with-ipv6",
     "fake-ip-range": "198.18.0.0/16",
+    "fake-ip-filter": [
+      // 本地主机/设备
+      "+.lan",
+      "+.local",
+      // Windows网络出现小地球图标
+      "+.msftconnecttest.com",
+      "+.msftncsi.com",
+      // QQ快速登录检测失败
+      "localhost.ptlogin2.qq.com",
+      "localhost.sec.qq.com",
+      // 微信快速登录检测失败
+      "localhost.work.weixin.qq.com"
+    ],    
     "system-dns": [],
     "use-hosts": true,
     "listen": "0.0.0.0:5353",
