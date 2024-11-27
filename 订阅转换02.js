@@ -668,9 +668,16 @@ function overwriteDns(params, proxyName) {
       "domain:google.com,facebook.com,youtube.com,twitter.com,github.com,cloudflare.com,jsdelivr.net,hf.space":
         trustDnsList,
     },
-    fallback: [],
+    fallback: trustDnsList,
     "fallback-filter": {
       "response-code": "REFUSED,SERVFAIL,NXDOMAIN",
+        geoip: true,
+        // 除了 geoip-code 配置的国家 IP, 其他的 IP 结果会被视为污染 geoip-code 配置的国家的结果会直接采用，否则将采用 fallback 结果
+        "geoip-code": "CN",
+        //geosite 列表的内容被视为已污染，匹配到 geosite 的域名，将只使用 fallback 解析，不去使用 nameserver
+        geosite: ["gfw"],
+        ipcidr: ["240.0.0.0/4"],
+        domain: ["+.google.com", "+.facebook.com", "+.youtube.com"],
     },
     "enhanced-mode": "redir-host-with-ipv6",
     "fake-ip-range": "198.18.0.0/16",
@@ -748,9 +755,6 @@ function getProxiesByRegex(params, regex) {
 
 function getManualProxiesByRegex(params, regex) {
 	const matchedProxies = params.proxies.filter((e) => regex.test(e.name)).map((e) => e.name);
-	return regex.test("CN") 
-	? ["DIRECT", ...matchedProxies]
-	: matchedProxies.length > 0 
-	? matchedProxies 
-	: ["DIRECT", "手动选择", proxyName];
+//	return regex.test("CN") ? ["DIRECT", ...matchedProxies]: matchedProxies.length > 0 ? matchedProxies : ["DIRECT", "手动选择", proxyName];
+	return matchedProxies.length > 0 ? matchedProxies : ["DIRECT", "手动选择", proxyName];
 }
