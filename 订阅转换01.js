@@ -490,7 +490,7 @@ function overwriteProxyGroups(params) {
       type: "select",
       icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg",
       proxies: ["ALL - 自动选择", ...autoProxyGroups
-        .filter(group => !["Shared Chat", "SteamCN", "Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].includes(group.name))
+        .filter(group => !["Shared Chat", "Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].includes(group.name))
         .map(group => group.name), otherAutoProxyGroup ? otherAutoProxyGroup.name : null].filter(Boolean),
     },
 
@@ -529,7 +529,13 @@ function overwriteProxyGroups(params) {
       proxies: allProxies.length > 0 ? allProxies : ["DIRECT"],
       hidden: true,
     },
-
+    {
+      name: "SteamCN",
+      type: "select",
+      proxies: ["DIRECT", proxyName],
+      icon: "https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/Steam.png",
+      hidden: false,
+    },
     {
       name: "Shared Chat",
       type: "select",
@@ -548,7 +554,7 @@ function overwriteProxyGroups(params) {
         otherAutoProxyGroup ? `${otherAutoProxyGroup.name} - Shared Chat` : null,
       ].filter(Boolean),
     },
-    ...["SteamCN", "Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].map(groupName => ({
+    ...["Steam","Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].map(groupName => ({
       name: groupName,
       type: "select",
       url: getTestUrlForGroup(groupName),
