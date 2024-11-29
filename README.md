@@ -1,5 +1,7 @@
 ## Introduction
 
+更新了一些小BUG
+
 一个根据[大佬的](https://linux.do/t/topic/214118)魔改后的 Mihomo 覆写脚本，更多的自己研究吧！
 
 ## Star History
