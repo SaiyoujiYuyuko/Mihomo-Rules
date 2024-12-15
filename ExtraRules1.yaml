@@ -1,4 +1,4 @@
-prepend-rules:
++rules:
   - RULE-SET,CustomDirect,DIRECT
   - RULE-SET,steamcn,DIRECT
   - RULE-SET,CustomProxy,其他外网
