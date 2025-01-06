@@ -1,0 +1,446 @@
+rule-providers:
+  cn_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+  CustomDirect:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/SaiyoujiYuyuko/CustomRules@refs/heads/main/clash/direct.txt"
+    path: "./ruleset/custom/CustomDirect.yaml"
+  CustomProxy:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/SaiyoujiYuyuko/CustomRules@refs/heads/main/clash/proxy.txt"
+    path: "./ruleset/custom/CustomProxy.yaml"
+
+#
+  direct:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: "./ruleset/loyalsoldier/direct.yaml"
+  reject:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: "./ruleset/loyalsoldier/reject.yaml"
+  cncidr:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: "./ruleset/loyalsoldier/cncidr.yaml"
+  lancidr:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: "./ruleset/loyalsoldier/lancidr.yaml"
+  icloud:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: "./ruleset/loyalsoldier/icloud.yaml"
+  apple:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: "./ruleset/loyalsoldier/apple.yaml"
+  tld-not-cn:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
+    path: "./ruleset/loyalsoldier/tld-not-cn.yaml"
+#
+  fakeip-filter:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/fakeip-filter.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.mrs"
+    interval: 86400
+  applications:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rules/applications.list
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/applications.list"
+    interval: 86400
+  private:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/private.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.mrs"
+    interval: 86400
+  ads:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/ads.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ads.mrs"
+    interval: 86400
+  microsoft-cn:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/microsoft-cn.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/microsoft-cn.mrs"
+    interval: 86400
+  apple-cn:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/apple-cn.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/apple-cn.mrs"
+    interval: 86400
+  google-cn:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/google-cn.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/google-cn.mrs"
+    interval: 86400
+  games-cn:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/games-cn.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.mrs"
+    interval: 86400
+  netflix:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/netflix.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/netflix.mrs"
+    interval: 86400
+  disney:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/disney.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/disney.mrs"
+    interval: 86400
+  max:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/max.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/max.mrs"
+    interval: 86400
+  primevideo:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/primevideo.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/primevideo.mrs"
+    interval: 86400
+  appletv:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/appletv.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/appletv.mrs"
+    interval: 86400
+  youtube:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/youtube.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/youtube.mrs"
+    interval: 86400
+  tiktok:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/tiktok.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tiktok.mrs"
+    interval: 86400
+  bilibili:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/bilibili.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/bilibili.mrs"
+    interval: 86400
+  ai:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/ai.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs"
+    interval: 86400
+  networktest:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rules/networktest.list
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/networktest.list"
+    interval: 86400
+  proxy:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/proxy.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/proxy.mrs"
+    interval: 86400
+  cn:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/cn.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cn.mrs"
+    interval: 86400
+  netflixip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/netflixip.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/netflixip.mrs"
+    interval: 86400
+  telegramip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/telegramip.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/telegramip.mrs"
+    interval: 86400
+  privateip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/privateip.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/privateip.mrs"
+    interval: 86400
+  cnip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/cnip.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cnip.mrs"
+    interval: 86400
+  openai:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml"
+    path: "./ruleset/blackmatrix7/openai.yaml"
+  microsoft:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml"
+    path: "./ruleset/blackmatrix7/microsoft.yaml"
+  steamcn:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml"
+    path: "./ruleset/blackmatrix7/steamcn.yaml"
+  bytedance:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ByteDance/ByteDance.yaml"
+    path: "./ruleset/blackmatrix7/bytedance.yaml"
+  facebook:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Facebook/Facebook.yaml"
+    path: "./ruleset/blackmatrix7/facebook.yaml"
+  claude:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml"
+    path: "./ruleset/blackmatrix7/claude.yaml"
+  steam:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/yangtb2024/Mihomo-Rules@refs/heads/main/Steam.txt"
+    path: "./ruleset/yangtb2024/steam.yaml"
+  spotify:
+    type: http
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spotify/Spotify.yaml"
+    path: "./ruleset/blackmatrix7/Spotify.yaml"
+  greatfire:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt"
+    path: "./ruleset/Loyalsoldier/greatfire.yaml"
+  AD:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/AD.yaml"
+    path: "./ruleset/earoftoast/AD.yaml"
+  EasyList:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/EasyList.yaml"
+    path: ".ruleset/earoftoast/EasyList.yaml"
+  EasyListChina:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/EasyListChina.yaml"
+    path: "./ruleset/earoftoast/EasyListChina.yaml"
+  EasyPrivacy:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/EasyPrivacy.yaml"
+    path: "./ruleset/earoftoast/EasyPrivacy.yaml"
+  ProgramAD:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/earoftoast/clash-rules@main/ProgramAD.yaml"
+    path: "./ruleset/earoftoast/ProgramAD.yaml"
+  秋风广告规则:
+    type: http
+    interval: 86400
+    behavior: domain
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    path: "./ruleset/AWAvenue-Ads-Rule-Clash.yaml"
++rules:
+  - DOMAIN-SUFFIX,googleapis.cn,🎯 节点选择 # Google服务
+  - DOMAIN-SUFFIX,gstatic.com,🎯 节点选择 # Google静态资源
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🎯 节点选择 # Google Play下载服务
+  - DOMAIN-SUFFIX,github.io,🎯 节点选择 # Github Pages
+  - DOMAIN,v2rayse.com,🎯 节点选择 # V2rayse节点工具
+  - DOMAIN,hajimi.icu,🎯 节点选择 
+  - IP-CIDR,183.230.113.152/32,REJECT
+  - IP-CIDR,1.12.12.12/32,🎯 节点选择
+  - RULE-SET,CustomDirect,DIRECT
+  - RULE-SET,CustomProxy,🎯 节点选择
+  - GEOIP,CN,DIRECT,no-resolve
+  - GEOIP,LAN,DIRECT,no-resolve
+  - GEOSITE,geolocation-cn,DIRECT
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,cncidr,DIRECT,no-resolve
+  - RULE-SET,lancidr,DIRECT,no-resolve
+  - RULE-SET,bytedance,DIRECT
+  - RULE-SET,steamcn,DIRECT
+  - RULE-SET,apple,🎯 节点选择
+  - RULE-SET,icloud,🎯 节点选择
+  - RULE-SET,reject,REJECT
+  - RULE-SET,AD,REJECT
+  - RULE-SET,EasyList,REJECT
+  - RULE-SET,EasyListChina,REJECT
+  - RULE-SET,EasyPrivacy,REJECT
+  - RULE-SET,ProgramAD,REJECT
+  - RULE-SET,秋风广告规则,REJECT
+  - RULE-SET,tld-not-cn,🎯 节点选择
+  
+  - RULE-SET,applications,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,ads,REJECT
+  - RULE-SET,microsoft-cn,DIRECT
+  - RULE-SET,apple-cn,DIRECT
+  - RULE-SET,google-cn,DIRECT
+  - RULE-SET,games-cn,DIRECT
+  - RULE-SET,netflix,🎥 奈飞视频
+  - RULE-SET,disney,📽️ 迪士尼+
+  - RULE-SET,max,🎞️ Max
+  - RULE-SET,primevideo,🎬 Prime Video
+  - RULE-SET,appletv,🍎 Apple TV+
+  - RULE-SET,youtube,📹 油管视频
+  - RULE-SET,tiktok,🎵 TikTok
+  - RULE-SET,bilibili,DIRECT
+  - RULE-SET,ai,🤖 人工智能
+  - RULE-SET,networktest,📈 网络测试
+  - RULE-SET,proxy,🎯 节点选择
+  - RULE-SET,cn,DIRECT
+  - RULE-SET,netflixip,🎥 奈飞视频,no-resolve
+  - RULE-SET,telegramip,🎯 节点选择,no-resolve
+  - RULE-SET,privateip,DIRECT,no-resolve
+  - RULE-SET,cnip,DIRECT
+proxy-groups+:
+  - name: Claude
+    type: select
+    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT
+  - name: 🎥 奈飞视频
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 📽️ 迪士尼+
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT
+  - name: 🎞️ Max
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 🎬 Prime Video
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 🍎 Apple TV+
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 📹 油管视频
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 🎵 TikTok
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 🤖 人工智能
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT  
+  - name: 📈 网络测试
+    type: select
+#    icon: "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/anthropic.png"
+    include-all: true
+    proxies:
+      - 🎯 节点选择
+      - DIRECT
